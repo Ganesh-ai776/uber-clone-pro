@@ -1,6 +1,6 @@
 # Captain Routes Documentation
 
-## /captain/register Endpoint
+## /captains/register Endpoint
 
 ### Description
 
@@ -9,7 +9,7 @@ Endpoint to register a new captain. Validates input data and returns a JWT token
 ### Request
 
 - **Method:** POST
-- **URL:** `/captain/register`
+- **URL:** `/captains/register`
 
 #### Request Body Parameters
 
@@ -31,3 +31,65 @@ Endpoint to register a new captain. Validates input data and returns a JWT token
   - **captain:** Object containing captain details.
 - **Error (400):**
   - **errors/message:** Validation errors or an error message if the captain already exists.
+
+## /captain/login Endpoint
+
+### Description
+
+Endpoint to authenticate a captain. Validates credentials and returns a JWT token along with the captain's details upon successful authentication.
+
+### Request
+
+- **Method:** POST
+- **URL:** `/captain/login`
+
+#### Request Body Parameters
+
+- **email:** String, required, must be a valid email.
+- **password:** String, required, minimum 6 characters.
+
+### Response
+
+- **Success (200):**
+  - **token:** JWT token.
+  - **captain:** Object containing captain details.
+- **Error (400/401):**
+  - **errors/message:** Validation errors or error message if authentication fails.
+
+## /captain/profile Endpoint
+
+### Description
+
+Endpoint to retrieve the authenticated captain's profile.
+
+### Request
+
+- **Method:** GET
+- **URL:** `/captain/profile`
+- **Headers:** Must include a valid token via cookies or the Authorization header.
+
+### Response
+
+- **Success (200):**
+  - **captain:** Object containing the captain's profile information.
+- **Error (401):**
+  - **message:** Unauthorized access message.
+
+## /captain/logout Endpoint
+
+### Description
+
+Endpoint to log out the authenticated captain by invalidating the current token.
+
+### Request
+
+- **Method:** GET
+- **URL:** `/captain/logout`
+- **Headers:** Must include a valid token via cookies or the Authorization header.
+
+### Response
+
+- **Success (200):**
+  - **message:** Logout confirmation message.
+- **Error (401):**
+  - **message:** Unauthorized access message.
